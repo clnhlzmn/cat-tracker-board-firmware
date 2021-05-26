@@ -7,6 +7,7 @@
  */
 #include "atmel_start.h"
 #include "usb_start.h"
+#include <stdio.h>
 
 #if CONF_USBD_HS_SP
 static uint8_t single_desc_bytes[] = {
@@ -111,6 +112,8 @@ void cdcd_acm_example(void)
 	cdcdf_acm_register_callback(CDCDF_ACM_CB_STATE_C, (FUNC_PTR)usb_device_cb_state_c);
 
 	while (1) {
+        printf("hello world\r\n");
+        delay_ms(100);
 	}
 }
 
