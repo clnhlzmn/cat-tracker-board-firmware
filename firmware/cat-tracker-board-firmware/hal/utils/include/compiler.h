@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief Header
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2016-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -34,11 +34,31 @@
  * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
+/******************************************************************************
+ * compiler.h
+ *
+ * Created: 05.05.2014
+ * Author: N. Fomin
+ ******************************************************************************/
 
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
+#ifndef _COMPILER_H
+#define _COMPILER_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+#ifndef _UNIT_TEST_
+#include "parts.h"
+#endif
+#include "err_codes.h"
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* _COMPILER_H */

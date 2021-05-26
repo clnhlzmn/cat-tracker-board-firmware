@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief HAL initialization related functionality declaration.
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,43 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+
+#ifndef _HAL_INIT_H_INCLUDED
+#define _HAL_INIT_H_INCLUDED
+
+#include <hpl_init.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * \addtogroup doc_driver_hal_helper_init Init Driver
+ *
+ *@{
  */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
-
-int main(void)
+/**
+ * \brief Initialize the hardware abstraction layer
+ *
+ * This function calls the various initialization functions.
+ * Currently the following initialization functions are supported:
+ *  - System clock initialization
+ */
+static inline void init_mcu(void)
 {
-	atmel_start_init();
-	cdcd_acm_example();
+	_init_chip();
 }
+
+/**
+ * \brief Retrieve the current driver version
+ *
+ * \return Current driver version.
+ */
+uint32_t init_get_version(void);
+
+/**@}*/
+#ifdef __cplusplus
+}
+#endif
+#endif /* _HAL_INIT_H_INCLUDED */

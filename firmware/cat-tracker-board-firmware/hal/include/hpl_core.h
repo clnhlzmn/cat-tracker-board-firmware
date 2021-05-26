@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief CPU core related functionality declaration.
  *
  * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,27 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+
+#ifndef _HPL_CORE_H_INCLUDED
+#define _HPL_CORE_H_INCLUDED
+
+/**
+ * \addtogroup HPL Core
+ *
+ * \section hpl_core_rev Revision History
+ * - v1.0.0 Initial Release
+ *
+ *@{
  */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
+#include "hpl_core_port.h"
 
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __cplusplus
 }
+#endif
+/**@}*/
+#endif /* _HPL_CORE_H_INCLUDED */

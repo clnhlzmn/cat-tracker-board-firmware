@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief SAM Power manager
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,48 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+
+#include <hpl_pm_base.h>
+#include <hpl_pm_config.h>
+#include <hpl_reset.h>
+#include <hpl_sleep.h>
+#include <utils_assert.h>
+
+/**
+ * \brief Retrieve the reset reason
  */
-
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
-
-int main(void)
+enum reset_reason _get_reset_reason(void)
 {
-	atmel_start_init();
-	cdcd_acm_example();
+	return (enum reset_reason)hri_pm_read_RCAUSE_reg(PM);
+}
+
+/**
+ * \brief Set the sleep mode for the device
+ */
+int32_t _set_sleep_mode(const uint8_t mode)
+{
+	switch (mode) {
+	case 0:
+	case 1:
+	case 2:
+		SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk;
+		PM->SLEEP.reg = mode;
+		return ERR_NONE;
+	case 3:
+		SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+		return ERR_NONE;
+	default:
+		return ERR_INVALID_ARG;
+	}
+}
+
+/**
+ * \brief Power Manager Init
+ */
+void _pm_init(void)
+{
+	hri_pm_set_CPUSEL_CPUDIV_bf(PM, CONF_CPU_DIV);
+	hri_pm_set_APBASEL_APBADIV_bf(PM, CONF_APBA_DIV);
+	hri_pm_set_APBBSEL_APBBDIV_bf(PM, CONF_APBB_DIV);
+	hri_pm_set_APBCSEL_APBCDIV_bf(PM, CONF_APBC_DIV);
 }

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief Sleep related functionality declaration.
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,45 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+
+#ifndef _HAL_SLEEP_H_INCLUDED
+#define _HAL_SLEEP_H_INCLUDED
+
+#include <hpl_sleep.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * \addtogroup doc_driver_hal_helper_sleep
+ *
+ *@{
  */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
+/**
+ * \brief Set the sleep mode of the device and put the MCU to sleep
+ *
+ * For an overview of which systems are disabled in sleep for the different
+ * sleep modes, see the data sheet.
+ *
+ * \param[in] mode Sleep mode to use
+ *
+ * \return The status of a sleep request
+ * \retval -1 The requested sleep mode was invalid or not available
+ * \retval  0 The operation completed successfully, returned after leaving the
+ *            sleep
+ */
+int sleep(const uint8_t mode);
 
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
+/**
+ * \brief Retrieve the current driver version
+ *
+ * \return Current driver version.
+ */
+uint32_t sleep_get_version(void);
+/**@}*/
+#ifdef __cplusplus
 }
+#endif
+#endif /* _HAL_SLEEP_H_INCLUDED */

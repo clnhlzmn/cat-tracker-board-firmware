@@ -1,7 +1,10 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief USB Debug Files.
+ *
+ * This file contains the USB definitions and data structures provided by the
+ * USB 2.0 specification.
  *
  * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
@@ -15,7 +18,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -28,17 +31,11 @@
  * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
  * \asf_license_stop
- *
- */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
+#ifndef _USB_DEBUG_H_
+#define _USB_DEBUG_H_
 
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
-}
+#define udbg_print(...)
+
+#endif

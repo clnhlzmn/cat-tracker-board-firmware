@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief Events declaration.
  *
  * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,25 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+
+#ifndef _EVENTS_H_INCLUDED
+#define _EVENTS_H_INCLUDED
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <compiler.h>
+
+/**
+ * \brief List of events. Must start with 0, be unique and follow numerical order.
  */
+#define EVENT_IS_READY_TO_SLEEP_ID 0
+#define EVENT_PREPARE_TO_SLEEP_ID 1
+#define EVENT_WOKEN_UP_ID 2
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
-
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* _EVENTS_H_INCLUDED */

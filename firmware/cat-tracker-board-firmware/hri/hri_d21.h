@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief SAM D21 HRI top-level header file
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2017-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,35 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
- */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
+#ifndef _HRI_D21_H_INCLUDED_
+#define _HRI_D21_H_INCLUDED_
 
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
-}
+#include <sam.h>
+#include <hri_ac_d21.h>
+#include <hri_adc_d21.h>
+#include <hri_dac_d21.h>
+#include <hri_dmac_d21.h>
+#include <hri_dsu_d21.h>
+#include <hri_eic_d21.h>
+#include <hri_evsys_d21.h>
+#include <hri_gclk_d21.h>
+#include <hri_hmatrixb_d21.h>
+#include <hri_i2s_d21.h>
+#include <hri_mtb_d21.h>
+#include <hri_nvic_d21.h>
+#include <hri_nvmctrl_d21.h>
+#include <hri_pac_d21.h>
+#include <hri_pm_d21.h>
+#include <hri_port_d21.h>
+#include <hri_rtc_d21.h>
+#include <hri_sercom_d21.h>
+#include <hri_sysctrl_d21.h>
+#include <hri_systemcontrol_d21.h>
+#include <hri_systick_d21.h>
+#include <hri_tc_d21.h>
+#include <hri_tcc_d21.h>
+#include <hri_usb_d21.h>
+#include <hri_wdt_d21.h>
+
+#endif /* _HRI_D21_H_INCLUDED_ */

@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief Reset related functionality declaration.
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,62 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+
+#ifndef _HPL_RESET_H_INCLUDED
+#define _HPL_RESET_H_INCLUDED
+
+/**
+ * \addtogroup HPL Reset
+ *
+ * \section hpl_reset_rev Revision History
+ * - v1.0.0 Initial Release
+ *
+ *@{
  */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
+#ifndef _UNIT_TEST_
+#include <compiler.h>
+#endif
 
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**
+ * \brief Reset reason enumeration
+ *
+ * The list of possible reset reasons.
+ */
+enum reset_reason {
+	RESET_REASON_POR   = 1,
+	RESET_REASON_BOD12 = 2,
+	RESET_REASON_BOD33 = 4,
+	RESET_REASON_EXT   = 16,
+	RESET_REASON_WDT   = 32,
+	RESET_REASON_SYST  = 64,
+};
+
+/**
+ * \name HPL functions
+ */
+//@{
+/**
+ * \brief Retrieve the reset reason
+ *
+ * Retrieves the reset reason of the last MCU reset.
+ *
+ *\return An enum value indicating the reason of the last reset.
+ */
+enum reset_reason _get_reset_reason(void);
+
+/**
+ * \brief Reset MCU
+ */
+void _reset_mcu(void);
+//@}
+
+#ifdef __cplusplus
 }
+#endif
+/**@}*/
+#endif /* _HPL_RESET_H_INCLUDED */

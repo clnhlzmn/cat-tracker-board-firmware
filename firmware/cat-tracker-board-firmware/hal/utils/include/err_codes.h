@@ -1,7 +1,10 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief Error code definitions.
+ *
+ * This file defines various status codes returned by functions,
+ * indicating success or failure as well as what kind of failure.
  *
  * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
  *
@@ -15,7 +18,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +33,41 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
- */
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
+#ifndef ERROR_CODES_H_INCLUDED
+#define ERROR_CODES_H_INCLUDED
 
-int main(void)
-{
-	atmel_start_init();
-	cdcd_acm_example();
-}
+#define ERR_NONE 0
+#define ERR_INVALID_DATA -1
+#define ERR_NO_CHANGE -2
+#define ERR_ABORTED -3
+#define ERR_BUSY -4
+#define ERR_SUSPEND -5
+#define ERR_IO -6
+#define ERR_REQ_FLUSHED -7
+#define ERR_TIMEOUT -8
+#define ERR_BAD_DATA -9
+#define ERR_NOT_FOUND -10
+#define ERR_UNSUPPORTED_DEV -11
+#define ERR_NO_MEMORY -12
+#define ERR_INVALID_ARG -13
+#define ERR_BAD_ADDRESS -14
+#define ERR_BAD_FORMAT -15
+#define ERR_BAD_FRQ -16
+#define ERR_DENIED -17
+#define ERR_ALREADY_INITIALIZED -18
+#define ERR_OVERFLOW -19
+#define ERR_NOT_INITIALIZED -20
+#define ERR_SAMPLERATE_UNAVAILABLE -21
+#define ERR_RESOLUTION_UNAVAILABLE -22
+#define ERR_BAUDRATE_UNAVAILABLE -23
+#define ERR_PACKET_COLLISION -24
+#define ERR_PROTOCOL -25
+#define ERR_PIN_MUX_INVALID -26
+#define ERR_UNSUPPORTED_OP -27
+#define ERR_NO_RESOURCE -28
+#define ERR_NOT_READY -29
+#define ERR_FAILURE -30
+#define ERR_WRONG_LENGTH -31
+
+#endif

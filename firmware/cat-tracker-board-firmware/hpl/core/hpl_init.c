@@ -1,9 +1,9 @@
 /**
  * \file
  *
- * \brief Application implement
+ * \brief HPL initialization related functionality implementation.
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2014-2018 Microchip Technology Inc. and its subsidiaries.
  *
  * \asf_license_start
  *
@@ -15,7 +15,7 @@
  * to your use of third party software (including open source software) that
  * may accompany Microchip software.
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES,
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
  * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
  * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
  * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
@@ -30,15 +30,40 @@
  * \asf_license_stop
  *
  */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+
+#include <hpl_gpio.h>
+#include <hpl_init.h>
+#include <hpl_gclk_base.h>
+#include <hpl_pm_config.h>
+#include <hpl_pm_base.h>
+
+#include <hpl_dma.h>
+#include <hpl_dmac_config.h>
+
+/* Referenced GCLKs (out of 0~7), should be initialized firstly
  */
+#define _GCLK_INIT_1ST 0x00000000
+/* Not referenced GCLKs, initialized last */
+#define _GCLK_INIT_LAST 0x000000FF
 
-#include "atmel_start.h"
-#include "atmel_start_pins.h"
-
-int main(void)
+/**
+ * \brief Initialize the hardware abstraction layer
+ */
+void _init_chip(void)
 {
-	atmel_start_init();
-	cdcd_acm_example();
+	hri_nvmctrl_set_CTRLB_RWS_bf(NVMCTRL, CONF_NVM_WAIT_STATE);
+
+	_pm_init();
+	_sysctrl_init_sources();
+#if _GCLK_INIT_1ST
+	_gclk_init_generators_by_fref(_GCLK_INIT_1ST);
+#endif
+	_sysctrl_init_referenced_generators();
+	_gclk_init_generators_by_fref(_GCLK_INIT_LAST);
+
+#if CONF_DMAC_ENABLE
+	_pm_enable_bus_clock(PM_BUS_AHB, DMAC);
+	_pm_enable_bus_clock(PM_BUS_APBB, DMAC);
+	_dma_init();
+#endif
 }
