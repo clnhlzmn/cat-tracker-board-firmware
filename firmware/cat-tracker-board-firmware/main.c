@@ -36,9 +36,14 @@
 
 #include "atmel_start.h"
 #include "atmel_start_pins.h"
+#include <stdio.h>
 
 int main(void)
 {
 	atmel_start_init();
-	cdcd_acm_example();
+
+	while (1) {
+    	printf("hello world\r\n");
+    	delay_ms(100);
+	}
 }

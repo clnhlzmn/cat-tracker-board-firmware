@@ -15,7 +15,6 @@ extern "C" {
 #include "cdcdf_acm.h"
 #include "cdcdf_acm_desc.h"
 
-void cdcd_acm_example(void);
 void cdc_device_acm_init(void);
 
 /**
