@@ -41,9 +41,14 @@
 int main(void)
 {
 	atmel_start_init();
+    
+    //set gps enable pin as output
+    PORT->Group[0].DIRSET.reg = PORT_PA17;
 
 	while (1) {
     	printf("hello world\r\n");
-    	delay_ms(100);
+    	delay_ms(1000);
+        PORT->Group[0].OUTTGL.reg = PORT_PA17;
+        cdc_device_acm_update();
 	}
 }

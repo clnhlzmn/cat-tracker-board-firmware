@@ -15,7 +15,7 @@ extern "C" {
 #include "cdcdf_acm.h"
 #include "cdcdf_acm_desc.h"
 
-void cdc_device_acm_init(void);
+void cdc_device_acm_update(void);
 
 /**
  * \berif Initialize USB

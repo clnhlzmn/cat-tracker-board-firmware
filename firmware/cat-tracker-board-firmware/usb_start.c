@@ -81,7 +81,7 @@ static bool usb_device_cb_state_c(usb_cdc_control_signal_t state)
 /**
  * \brief CDC ACM Init
  */
-void cdc_device_acm_init(void)
+static void cdc_device_acm_init(void)
 {
 	/* usb stack init */
 	usbdc_init(ctrl_buffer);
@@ -95,12 +95,18 @@ void cdc_device_acm_init(void)
 
 void usb_init(void)
 {
-
 	cdc_device_acm_init();
-    
-	while (!cdcdf_acm_is_enabled()) {
-    	// wait cdc acm to be installed
-	};
+}
 
-	cdcdf_acm_register_callback(CDCDF_ACM_CB_STATE_C, (FUNC_PTR)usb_device_cb_state_c);
+static bool usb_connected;
+
+void cdc_device_acm_update(void) {
+    if (cdcdf_acm_is_enabled()) {
+        if (!usb_connected) {
+            usb_connected = true;
+            cdcdf_acm_register_callback(CDCDF_ACM_CB_STATE_C, (FUNC_PTR)usb_device_cb_state_c);
+        }
+    } else {
+        usb_connected = false;
+    }
 }
