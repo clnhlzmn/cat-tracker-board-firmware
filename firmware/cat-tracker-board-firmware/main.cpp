@@ -37,6 +37,9 @@
 #include "atmel_start.h"
 #include "atmel_start_pins.h"
 #include <stdio.h>
+#include "RH_RF95.h"
+
+RH_RF95 rf95;
 
 int main(void)
 {
