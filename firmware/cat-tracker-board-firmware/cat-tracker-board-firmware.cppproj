@@ -394,7 +394,7 @@
     <Compile Include="usb\usb_protocol.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main.c">
+    <Compile Include="main.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usb_start.c">
