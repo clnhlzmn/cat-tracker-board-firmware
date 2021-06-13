@@ -22,6 +22,7 @@
 
 #include <Arduino.h>
 #include <api/HardwareSPI.h>
+#include "SERCOM.h"
 
 // SPI_HAS_TRANSACTION means SPI has
 //   - beginTransaction()
@@ -46,7 +47,7 @@ class SPIClassSAMD : public arduino::HardwareSPI {
   public:
   SPIClassSAMD(SERCOM *p_sercom, uint8_t uc_pinMISO, uint8_t uc_pinSCK, uint8_t uc_pinMOSI, SercomSpiTXPad, SercomRXPad);
 
-  byte transfer(uint8_t data);
+  uint8_t transfer(uint8_t data);
   uint16_t transfer16(uint16_t data);
   void transfer(void *buf, size_t count);
 
@@ -89,24 +90,7 @@ class SPIClassSAMD : public arduino::HardwareSPI {
 
 #define SPIClass SPIClassSAMD
 
-#if SPI_INTERFACES_COUNT > 0
-  extern SPIClass SPI;
-#endif
-#if SPI_INTERFACES_COUNT > 1
-  extern SPIClass SPI1;
-#endif
-#if SPI_INTERFACES_COUNT > 2
-  extern SPIClass SPI2;
-#endif
-#if SPI_INTERFACES_COUNT > 3
-  extern SPIClass SPI3;
-#endif
-#if SPI_INTERFACES_COUNT > 4
-  extern SPIClass SPI4;
-#endif
-#if SPI_INTERFACES_COUNT > 5
-  extern SPIClass SPI5;
-#endif
+extern SPIClass SPI;
 
 // For compatibility with sketches designed for AVR @ 16 MHz
 // New programs should use SPI.beginTransaction to set the SPI clock

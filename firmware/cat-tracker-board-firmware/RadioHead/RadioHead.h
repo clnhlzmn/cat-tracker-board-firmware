@@ -1180,7 +1180,7 @@ these examples and explanations and extend them to suit your needs.
  #else
   #include <SPI.h>
   #define RH_HAVE_HARDWARE_SPI
-  #define RH_HAVE_SERIAL
+  //#define RH_HAVE_SERIAL
  #endif
  #if defined(ARDUINO_ARCH_STM32F4)
   // output to Serial causes hangs on STM32 F4 Discovery board

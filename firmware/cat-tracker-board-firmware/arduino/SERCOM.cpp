@@ -18,7 +18,7 @@
 
 #include "Arduino.h"
 #include "SERCOM.h"
-#include "variant.h"
+//#include "variant.h"
 
 #ifndef WIRE_RISE_TIME_NANOSECONDS
 // Default rise time in nanoseconds, based on 4.7K ohm pull up resistors
