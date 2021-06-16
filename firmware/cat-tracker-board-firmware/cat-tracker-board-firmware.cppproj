@@ -44,144 +44,38 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <ArmGccCpp>
-        <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
-        <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
-        <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
-        <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
-        <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
-        <armgcc.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-            <Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value>
-            <Value>..</Value>
-            <Value>../hal/include</Value>
-            <Value>../hal/utils/include</Value>
-            <Value>../hri</Value>
-            <Value>../hpl/port</Value>
-            <Value>../usb</Value>
-            <Value>../Config</Value>
-            <Value>../hpl/gclk</Value>
-            <Value>../hpl/pm</Value>
-            <Value>../usb/class/cdc/device</Value>
-            <Value>../usb/device</Value>
-            <Value>../usb/class/cdc</Value>
-            <Value>../hpl/core</Value>
-          </ListValues>
-        </armgcc.compiler.directories.IncludePaths>
-        <armgcccpp.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>RH_PLATFORM=RH_PLATFORM_ARDUINO</Value>
-            <Value>ARDUINO=100</Value>
-          </ListValues>
-        </armgcccpp.compiler.symbols.DefSymbols>
-        <armgcccpp.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>..</Value>
-            <Value>../RadioHead</Value>
-            <Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-            <Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value>
-            <Value>../hal/include</Value>
-            <Value>../hal/utils/include</Value>
-            <Value>../hri</Value>
-            <Value>../hpl/port</Value>
-            <Value>../usb</Value>
-            <Value>../Config</Value>
-            <Value>../hpl/gclk</Value>
-            <Value>../hpl/pm</Value>
-            <Value>../usb/class/cdc/device</Value>
-            <Value>../usb/device</Value>
-            <Value>../usb/class/cdc</Value>
-            <Value>../hpl/core</Value>
-            <Value>../SPI</Value>
-            <Value>../arduino</Value>
-          </ListValues>
-        </armgcccpp.compiler.directories.IncludePaths>
-        <armgcccpp.linker.libraries.Libraries>
-          <ListValues>
-            <Value>libm</Value>
-          </ListValues>
-        </armgcccpp.linker.libraries.Libraries>
-        <armgcccpp.linker.libraries.LibrarySearchPaths>
-          <ListValues>
-            <Value>../Device_Startup</Value>
-          </ListValues>
-        </armgcccpp.linker.libraries.LibrarySearchPaths>
-        <armgcccpp.linker.optimization.GarbageCollectUnusedSections>True</armgcccpp.linker.optimization.GarbageCollectUnusedSections>
-        <armgcccpp.linker.memorysettings.ExternalRAM>False</armgcccpp.linker.memorysettings.ExternalRAM>
-        <armgcccpp.linker.miscellaneous.LinkerFlags>-Tsamd21e18a_flash.ld</armgcccpp.linker.miscellaneous.LinkerFlags>
-      </ArmGccCpp>
+  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
+  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
+  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
+  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
+  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
+  <armgcc.compiler.directories.IncludePaths><ListValues><Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value><Value>..</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hri</Value><Value>../hpl/port</Value><Value>../usb</Value><Value>../Config</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../usb/class/cdc/device</Value><Value>../usb/device</Value><Value>../usb/class/cdc</Value><Value>../hpl/core</Value></ListValues></armgcc.compiler.directories.IncludePaths>
+  <armgcccpp.compiler.directories.IncludePaths><ListValues><Value>..</Value><Value>../RadioHead</Value><Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hri</Value><Value>../hpl/port</Value><Value>../usb</Value><Value>../Config</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../usb/class/cdc/device</Value><Value>../usb/device</Value><Value>../usb/class/cdc</Value><Value>../hpl/core</Value><Value>../SPI</Value><Value>../arduino</Value><Value>../RadioHeadHAL</Value></ListValues></armgcccpp.compiler.directories.IncludePaths>
+  <armgcccpp.linker.libraries.Libraries><ListValues><Value>libm</Value></ListValues></armgcccpp.linker.libraries.Libraries>
+  <armgcccpp.linker.libraries.LibrarySearchPaths><ListValues><Value>../Device_Startup</Value></ListValues></armgcccpp.linker.libraries.LibrarySearchPaths>
+  <armgcccpp.linker.optimization.GarbageCollectUnusedSections>True</armgcccpp.linker.optimization.GarbageCollectUnusedSections>
+  <armgcccpp.linker.memorysettings.ExternalRAM>False</armgcccpp.linker.memorysettings.ExternalRAM>
+  <armgcccpp.linker.miscellaneous.LinkerFlags>-Tsamd21e18a_flash.ld</armgcccpp.linker.miscellaneous.LinkerFlags>
+</ArmGccCpp>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <ArmGccCpp>
-        <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
-        <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
-        <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
-        <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
-        <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
-        <armgcc.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-            <Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value>
-            <Value>..</Value>
-            <Value>../hal/include</Value>
-            <Value>../hal/utils/include</Value>
-            <Value>../hri</Value>
-            <Value>../hpl/port</Value>
-            <Value>../usb</Value>
-            <Value>../Config</Value>
-            <Value>../hpl/gclk</Value>
-            <Value>../hpl/pm</Value>
-            <Value>../usb/class/cdc/device</Value>
-            <Value>../usb/device</Value>
-            <Value>../usb/class/cdc</Value>
-            <Value>../hpl/core</Value>
-          </ListValues>
-        </armgcc.compiler.directories.IncludePaths>
-        <armgcccpp.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>RH_PLATFORM=RH_PLATFORM_ARDUINO</Value>
-            <Value>ARDUINO=100</Value>
-            <Value>F_CPU=48000000</Value>
-          </ListValues>
-        </armgcccpp.compiler.symbols.DefSymbols>
-        <armgcccpp.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>..</Value>
-            <Value>../RadioHead</Value>
-            <Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
-            <Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value>
-            <Value>../hal/include</Value>
-            <Value>../hal/utils/include</Value>
-            <Value>../hri</Value>
-            <Value>../hpl/port</Value>
-            <Value>../usb</Value>
-            <Value>../Config</Value>
-            <Value>../hpl/gclk</Value>
-            <Value>../hpl/pm</Value>
-            <Value>../usb/class/cdc/device</Value>
-            <Value>../usb/device</Value>
-            <Value>../usb/class/cdc</Value>
-            <Value>../hpl/core</Value>
-            <Value>../SPI</Value>
-            <Value>../arduino</Value>
-          </ListValues>
-        </armgcccpp.compiler.directories.IncludePaths>
-        <armgcccpp.linker.libraries.Libraries>
-          <ListValues>
-            <Value>libm</Value>
-          </ListValues>
-        </armgcccpp.linker.libraries.Libraries>
-        <armgcccpp.linker.libraries.LibrarySearchPaths>
-          <ListValues>
-            <Value>../Device_Startup</Value>
-          </ListValues>
-        </armgcccpp.linker.libraries.LibrarySearchPaths>
-        <armgcccpp.linker.optimization.GarbageCollectUnusedSections>True</armgcccpp.linker.optimization.GarbageCollectUnusedSections>
-        <armgcccpp.linker.memorysettings.ExternalRAM>False</armgcccpp.linker.memorysettings.ExternalRAM>
-        <armgcccpp.linker.miscellaneous.LinkerFlags>-Tsamd21e18a_flash.ld</armgcccpp.linker.miscellaneous.LinkerFlags>
-      </ArmGccCpp>
+  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
+  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
+  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
+  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
+  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
+  <armgcc.compiler.directories.IncludePaths><ListValues><Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value><Value>..</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hri</Value><Value>../hpl/port</Value><Value>../usb</Value><Value>../Config</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../usb/class/cdc/device</Value><Value>../usb/device</Value><Value>../usb/class/cdc</Value><Value>../hpl/core</Value></ListValues></armgcc.compiler.directories.IncludePaths>
+  <armgcccpp.compiler.directories.IncludePaths><ListValues><Value>..</Value><Value>../RadioHead</Value><Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value><Value>%24(PackRepoDir)\Atmel\SAMD21_DFP\1.3.395\samd21a\include</Value><Value>../hal/include</Value><Value>../hal/utils/include</Value><Value>../hri</Value><Value>../hpl/port</Value><Value>../usb</Value><Value>../Config</Value><Value>../hpl/gclk</Value><Value>../hpl/pm</Value><Value>../usb/class/cdc/device</Value><Value>../usb/device</Value><Value>../usb/class/cdc</Value><Value>../hpl/core</Value><Value>../SPI</Value><Value>../arduino</Value><Value>../RadioHeadHAL</Value></ListValues></armgcccpp.compiler.directories.IncludePaths>
+  <armgcccpp.linker.libraries.Libraries><ListValues><Value>libm</Value></ListValues></armgcccpp.linker.libraries.Libraries>
+  <armgcccpp.linker.libraries.LibrarySearchPaths><ListValues><Value>../Device_Startup</Value></ListValues></armgcccpp.linker.libraries.LibrarySearchPaths>
+  <armgcccpp.linker.optimization.GarbageCollectUnusedSections>True</armgcccpp.linker.optimization.GarbageCollectUnusedSections>
+  <armgcccpp.linker.memorysettings.ExternalRAM>False</armgcccpp.linker.memorysettings.ExternalRAM>
+  <armgcccpp.linker.miscellaneous.LinkerFlags>-Tsamd21e18a_flash.ld</armgcccpp.linker.miscellaneous.LinkerFlags>
+  <armgcccpp.compiler.symbols.DefSymbols><ListValues><Value>F_CPU=48000000</Value></ListValues></armgcccpp.compiler.symbols.DefSymbols>
+</ArmGccCpp>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
@@ -491,10 +385,16 @@
     <Compile Include="RadioHead\RHUtil\atomic.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="RadioHead\rh_hal.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="RadioHead\RH_RF95.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="RadioHead\RH_RF95.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="RadioHead\SPI.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="stdio_impl.c">

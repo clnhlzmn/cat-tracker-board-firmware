@@ -1124,6 +1124,7 @@ these examples and explanations and extend them to suit your needs.
 #define RH_PLATFORM_CHIPKIT_CORE     13
 #define RH_PLATFORM_ESP32            14
 #define RH_PLATFORM_NRF52            15
+#define RH_PLATFORM_GENERIC          16
 
 ////////////////////////////////////////////////////
 // Select platform automatically, if possible
@@ -1159,7 +1160,7 @@ these examples and explanations and extend them to suit your needs.
 #elif defined(__APPLE__) // OSX
   #define RH_PLATFORM RH_PLATFORM_UNIX
  #else
-  #error Platform not defined! 	
+  #define RH_PLATFORM RH_PLATFORM_GENERIC
  #endif
 #endif
 
@@ -1291,6 +1292,12 @@ these examples and explanations and extend them to suit your needs.
  #include <RHutil/simulator.h>
  #define RH_HAVE_SERIAL
 #include <netinet/in.h> // For htons and friends
+
+#elif (RH_PLATFORM == RH_PLATFORM_GENERIC)
+
+ #include <stdint.h>
+ #include <memory.h>
+ #include "rh_hal.h"
 
 #else
  #error Platform unknown!
