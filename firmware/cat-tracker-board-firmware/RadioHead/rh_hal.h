@@ -9,6 +9,8 @@
 #ifndef RH_HAL_H_
 #define RH_HAL_H_
 
+#include <stdint.h>
+
 #define INPUT 0
 #define OUTPUT 1
 
@@ -33,5 +35,14 @@ long random(long, long);
 void delay(long);
 
 #define memcpy_P memcpy
+
+class SPI_Impl {
+public:
+    static uint8_t transfer(uint8_t);
+    static void end();
+private:
+};
+
+extern SPI_Impl SPI;
 
 #endif /* RH_HAL_H_ */
