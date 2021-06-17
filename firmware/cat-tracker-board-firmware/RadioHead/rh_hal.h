@@ -22,6 +22,11 @@
 #define FALLING 0
 #define RISING 1
 
+//arduino style pin numbers that will be passed 
+//to RH_RF95 ctor and then to functions below
+#define SS_PIN 10
+#define INTERRUPT_PIN 2
+
 void attachInterrupt(int, void(*)(void), int);
 
 void pinMode(int, int);
