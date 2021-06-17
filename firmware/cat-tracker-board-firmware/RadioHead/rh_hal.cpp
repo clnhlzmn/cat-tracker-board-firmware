@@ -7,6 +7,9 @@
 
 #include "rh_hal.h"
 #include "sam.h"
+#include "system_time.h"
+#include <stdlib.h>
+#include "hal_delay.h"
 
 static void (*rh_interrupt_cb)(void);
 
@@ -55,15 +58,18 @@ void digitalWrite(int pin_number, bool value) {
 }
 
 unsigned long millis() {
-    return 0;
+    return system_time_get_ms();
 }
 
 long random(long min, long max) {
-    return 0;
+    if (min >= max) {
+        return min;
+    }
+    return rand() % (max - min) + min;
 }
 
 void delay(long ms) {
-    
+    delay_ms(ms);
 }
 
 SPI_Impl SPI;
