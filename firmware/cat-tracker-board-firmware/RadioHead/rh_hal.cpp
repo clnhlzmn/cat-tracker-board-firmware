@@ -33,6 +33,10 @@ void delay(long ms) {
 
 SPI_Impl SPI;
 
+void SPI_Impl::begin() {
+
+}
+
 uint8_t SPI_Impl::transfer(uint8_t) {
     return 0;
 }

@@ -38,6 +38,7 @@ void delay(long);
 
 class SPI_Impl {
 public:
+    static void begin();
     static uint8_t transfer(uint8_t);
     static void end();
 private:
