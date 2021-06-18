@@ -40,10 +40,15 @@
 #include "RH_RF95.h"
 #include "uart.h"
 #include "system_time.h"
+#include "TinyGPS++.h"
 
 RH_RF95 rf95(SS_PIN, INTERRUPT_PIN);
 
+TinyGPSPlus gps;
+
 #define FREQUENCY 921.2
+
+#define TX_BUF_SIZE 100
 
 int main(void)
 {
@@ -67,17 +72,29 @@ int main(void)
 
     uint32_t tx_time;
 
+    char tx_buf[TX_BUF_SIZE];
+    bool new_message = false;
+
 	while (1) {
         uint8_t rx_buf[100+1];
         memset(rx_buf, 0, 100+1);
         int n = uart_receive(rx_buf, 100);
         if (n > 0) {
             printf((const char *)rx_buf);
+            for (int i = 0; i < n; ++i) {
+                gps.encode(rx_buf[i]);
+            }
         }
-        if (system_time_get_ms() - tx_time >= 1000) {
+        if (gps.location.isValid() && gps.location.isUpdated()) {
+            int n = snprintf(tx_buf, TX_BUF_SIZE, "%ld,%ld,%f,%f,%f", gps.date.value(), gps.time.value(), gps.location.lat(), gps.location.lng(), gps.hdop.hdop());
+            if (n > 0 && n < TX_BUF_SIZE) {
+                new_message = true;
+            }
+        }
+        if (system_time_get_ms() - tx_time >= 1000 && new_message) {
             tx_time = system_time_get_ms();
-            const char *message = "hello world";
-            rf95.send((uint8_t*)message, strlen(message));
+            new_message = false;
+            rf95.send((uint8_t*)tx_buf, strlen(tx_buf));
         }
         cdc_device_acm_update();
 	}
