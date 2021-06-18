@@ -19,7 +19,7 @@ void attachInterrupt(int interrupt_number, void(*cb)(void), int mode) {
         //turn on apba mask for eic
         PM->APBAMASK.reg |= PM_APBAMASK_EIC;
         //enable eic clock from generator 0
-        GCLK->GENCTRL.reg = GCLK_GENCTRL_GENEN | GCLK_GENCTRL_ID(0x05) | GCLK_CLKCTRL_GEN(0x0);
+        GCLK->CLKCTRL.reg = GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID_EIC;
         //set pa14 to eic function
         PORT->Group[0].PINCFG[14].bit.PMUXEN = 1;
         PORT->Group[0].PMUX[14/2].bit.PMUXE = MUX_PA14A_EIC_EXTINT14;
@@ -34,8 +34,11 @@ void attachInterrupt(int interrupt_number, void(*cb)(void), int mode) {
 }
 
 extern "C" void EIC_Handler(void) {
-    if (rh_interrupt_cb) {
-        rh_interrupt_cb();
+    if (EIC->INTFLAG.reg & EIC_INTFLAG_EXTINT14) {
+        EIC->INTFLAG.reg |= EIC_INTFLAG_EXTINT14;
+        if (rh_interrupt_cb) {
+            rh_interrupt_cb();
+        }
     }
 }
 
