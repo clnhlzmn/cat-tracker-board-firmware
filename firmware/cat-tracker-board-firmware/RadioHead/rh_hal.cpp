@@ -75,13 +75,44 @@ void delay(long ms) {
 SPI_Impl SPI;
 
 void SPI_Impl::begin() {
-
+    //enable bus
+    PM->APBCMASK.bit.SERCOM0_ = 1;
+    //assign sercom function to pins
+    PORT->Group[0].PINCFG[8].bit.PMUXEN = 1;
+    PORT->Group[0].PMUX[8/2].bit.PMUXE = MUX_PA08C_SERCOM0_PAD0;
+    PORT->Group[0].PINCFG[9].bit.PMUXEN = 1;
+    PORT->Group[0].PMUX[9/2].bit.PMUXO = MUX_PA09C_SERCOM0_PAD1;
+    PORT->Group[0].PINCFG[11].bit.PMUXEN = 1;
+    PORT->Group[0].PMUX[11/2].bit.PMUXO = MUX_PA11C_SERCOM0_PAD3;
+    //enable clock
+    GCLK->CLKCTRL.reg = GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID_SERCOM0_CORE;
+    //reset sercom
+    SERCOM0->SPI.CTRLA.bit.SWRST = 1;
+    while (SERCOM0->SPI.SYNCBUSY.bit.SWRST) {}
+    //disable sercom
+    SERCOM0->SPI.CTRLA.bit.ENABLE = 0;
+    while (SERCOM0->SPI.SYNCBUSY.bit.ENABLE) {}
+    //configure sercom
+    SERCOM0->SPI.CTRLA.reg = SERCOM_SPI_CTRLA_DIPO(0x3) | SERCOM_SPI_CTRLA_DOPO(0) | SERCOM_SPI_CTRLA_MODE_SPI_MASTER;
+    SERCOM0->SPI.CTRLB.bit.RXEN = 1;
+    while (SERCOM0->SPI.SYNCBUSY.bit.CTRLB) {}
+    //1 MHz clock
+    SERCOM0->SPI.BAUD.reg = 23;
+    //enable sercom
+    SERCOM0->SPI.CTRLA.bit.ENABLE = 1;
+    while (SERCOM0->SPI.SYNCBUSY.bit.ENABLE) {}
 }
 
-uint8_t SPI_Impl::transfer(uint8_t) {
-    return 0;
+uint8_t SPI_Impl::transfer(uint8_t data) {
+    while (!SERCOM0->SPI.INTFLAG.bit.DRE) {}
+    SERCOM0->SPI.DATA.reg = data;
+    while (!SERCOM0->SPI.INTFLAG.bit.TXC) {}
+    while (!SERCOM0->SPI.INTFLAG.bit.RXC) {}
+    return SERCOM0->SPI.DATA.reg;
 }
 
 void SPI_Impl::end() {
-
+    //disable sercom
+    SERCOM0->SPI.CTRLA.bit.ENABLE = 0;
+    while (SERCOM0->SPI.SYNCBUSY.bit.ENABLE) {}
 }
