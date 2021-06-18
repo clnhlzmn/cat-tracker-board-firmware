@@ -38,6 +38,8 @@
 #include "atmel_start_pins.h"
 #include <stdio.h>
 #include "RH_RF95.h"
+#include "uart.h"
+#include "system_time.h"
 
 RH_RF95 rf95(SS_PIN, INTERRUPT_PIN);
 
@@ -47,6 +49,8 @@ int main(void)
 {
 	atmel_start_init();
 
+    system_time_init();
+
     bool radio_init = rf95.init();
     if (!radio_init) {
         printf("failed to initialize radio");
@@ -54,17 +58,27 @@ int main(void)
     }
     rf95.setFrequency(FREQUENCY);
     rf95.setTxPower(14, false);
+
+    uart_init();
     
     //set gps enable pin as output
     PORT->Group[0].DIRSET.reg = PORT_PA17;
+    PORT->Group[0].OUTCLR.reg = PORT_PA17;
+
+    uint32_t tx_time;
 
 	while (1) {
-    	printf("hello world\r\n");
-        const char *message = "hello world";
-        rf95.send((uint8_t*)message, strlen(message));
-        rf95.waitPacketSent();
-    	delay_ms(1000);
-        PORT->Group[0].OUTTGL.reg = PORT_PA17;
+        uint8_t rx_buf[100+1];
+        memset(rx_buf, 0, 100+1);
+        int n = uart_receive(rx_buf, 100);
+        if (n > 0) {
+            printf((const char *)rx_buf);
+        }
+        if (system_time_get_ms() - tx_time >= 1000) {
+            tx_time = system_time_get_ms();
+            const char *message = "hello world";
+            rf95.send((uint8_t*)message, strlen(message));
+        }
         cdc_device_acm_update();
 	}
 }
