@@ -25,7 +25,7 @@ void gps_encode_from_uart(TinyGPSPlus &gps) {
     memset(rx_buf, 0, 100+1);
     int n = uart_receive(rx_buf, 100);
     if (n > 0) {
-        printf((const char *)rx_buf);
+        //printf((const char *)rx_buf);
         for (int i = 0; i < n; ++i) {
             gps.encode(rx_buf[i]);
         }
