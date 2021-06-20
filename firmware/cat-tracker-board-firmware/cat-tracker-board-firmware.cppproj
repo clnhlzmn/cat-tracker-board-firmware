@@ -538,6 +538,12 @@
     <Compile Include="RadioHead\RH_RF95.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="rtc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="stdio_impl.c">
       <SubType>compile</SubType>
     </Compile>

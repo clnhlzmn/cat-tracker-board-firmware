@@ -7,6 +7,7 @@
 #include "TinyGPS++.h"
 #include "pt.h"
 #include "gps.h"
+#include "rtc.h"
 
 #define FREQUENCY 921.2
 
@@ -56,6 +57,8 @@ int main(void)
 	atmel_start_init();
 
     system_time_init();
+
+    rtc_init();
 
     bool radio_init = rf95.init();
     if (!radio_init) {
