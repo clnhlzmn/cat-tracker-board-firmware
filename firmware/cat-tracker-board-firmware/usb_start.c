@@ -110,3 +110,7 @@ void cdc_device_acm_update(void) {
         usb_connected = false;
     }
 }
+
+bool cdc_device_enabled(void) {
+    return cdcdf_acm_is_enabled();
+}

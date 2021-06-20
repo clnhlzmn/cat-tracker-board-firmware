@@ -8,6 +8,7 @@
 #include "pt.h"
 #include "gps.h"
 #include "rtc.h"
+#include "standby.h"
 
 #define FREQUENCY 921.2
 
@@ -16,7 +17,7 @@
 #define GPS_LOCK_TIMEOUT (30 * 1000)
 
 //#define GPS_OFF_TIME (5 * 60 * 1000)
-#define GPS_OFF_TIME (10 * 1000)
+#define GPS_OFF_TIME (30 * 1000)
 
 static RH_RF95 rf95(SS_PIN, INTERRUPT_PIN);
 
@@ -33,6 +34,7 @@ static PT_THREAD(gps_thread()) {
         time = system_time_get_ms();
         do {
             gps_encode_from_uart(gps);
+            PT_YIELD(&pt);
         } while (!gps_have_new_value(gps) && system_time_get_ms() - time < GPS_LOCK_TIMEOUT);
         if (gps_have_new_value(gps)) {
             char tx_buf[TX_BUF_SIZE];
@@ -46,8 +48,14 @@ static PT_THREAD(gps_thread()) {
         }
         printf("disabling gps\r\n");
         gps_enable(false);
-        time = system_time_get_ms();
-        PT_WAIT_UNTIL(&pt, system_time_get_ms() - time >= GPS_OFF_TIME);
+        if (cdc_device_enabled()) {
+            time = system_time_get_ms();
+            PT_WAIT_UNTIL(&pt, system_time_get_ms() - time >= GPS_OFF_TIME);
+        } else {
+            rtc_set_timeout_ms(GPS_OFF_TIME);
+            standby();
+            PT_YIELD(&pt);
+        }
     }
     PT_END(&pt);
 }

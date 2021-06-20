@@ -17,6 +17,8 @@ extern "C" {
 
 void cdc_device_acm_update(void);
 
+bool cdc_device_enabled(void);
+
 /**
  * \berif Initialize USB
  */
