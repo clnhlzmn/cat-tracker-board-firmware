@@ -7,9 +7,12 @@
 
 #include "standby.h"
 #include "sam.h"
+#include "hal_atomic.h"
 
 void standby(void) {
-    __DSB();
+    CRITICAL_SECTION_ENTER();
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    __DSB();
     __WFI();
+    CRITICAL_SECTION_LEAVE();
 }
