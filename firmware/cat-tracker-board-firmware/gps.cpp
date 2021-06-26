@@ -33,5 +33,5 @@ void gps_encode_from_uart(TinyGPSPlus &gps) {
 }
 
 bool gps_have_new_value(TinyGPSPlus &gps) {
-    return gps.location.isValid() && gps.location.isUpdated();
+    return gps.location.isValid() && gps.location.isUpdated() && gps.hdop.hdop() < 10;
 }
