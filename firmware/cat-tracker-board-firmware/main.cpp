@@ -48,6 +48,7 @@ static PT_THREAD(gps_thread()) {
         }
         printf("disabling gps\r\n");
         gps_enable(false);
+        rf95.sleep();
         if (cdc_device_enabled()) {
             time = system_time_get_ms();
             PT_WAIT_UNTIL(&pt, system_time_get_ms() - time >= GPS_OFF_TIME);
