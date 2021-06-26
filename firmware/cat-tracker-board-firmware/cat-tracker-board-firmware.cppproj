@@ -68,6 +68,7 @@
             <Value>../hpl/core</Value>
           </ListValues>
         </armgcc.compiler.directories.IncludePaths>
+  <armgcc.compiler.optimization.level>Optimize most (-O3)</armgcc.compiler.optimization.level>
         <armgcccpp.compiler.symbols.DefSymbols>
           <ListValues>
             <Value>RH_HAVE_HARDWARE_SPI</Value>
