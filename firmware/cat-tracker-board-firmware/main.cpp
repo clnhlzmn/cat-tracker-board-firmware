@@ -75,6 +75,7 @@ int main(void)
     }
     rf95.setFrequency(FREQUENCY);
     rf95.setTxPower(14, false);
+    rf95.sleep();
 
     uart_init();
 
