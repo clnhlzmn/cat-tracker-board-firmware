@@ -23,46 +23,61 @@ static RH_RF95 rf95(SS_PIN, INTERRUPT_PIN);
 
 static TinyGPSPlus gps;
 
-static struct pt pt;
+static struct pt gps_pt;
 
 static PT_THREAD(gps_thread()) {
-    PT_BEGIN(&pt);
+    PT_BEGIN(&gps_pt);
     static uint32_t time;
     while (1) {
-        printf("enabling gps\r\n");
         gps_enable(true);
         static uint8_t attempts;
         for (attempts = 0; attempts < 5; ++attempts) {
             time = system_time_get_ms();
             do {
                 gps_encode_from_uart(gps);
-                PT_YIELD(&pt);
+                PT_YIELD(&gps_pt);
             } while (!gps_have_new_value(gps) && system_time_get_ms() - time < GPS_LOCK_TIMEOUT);
             if (gps_have_new_value(gps)) {
                 char tx_buf[TX_BUF_SIZE];
                 int n = snprintf(tx_buf, TX_BUF_SIZE, "%06ld,%08ld,%f,%f,%f", gps.date.value(), gps.time.value(), gps.location.lat(), gps.location.lng(), gps.hdop.hdop());
                 if (n > 0 && n < TX_BUF_SIZE) {
-                    printf("%s\r\n", tx_buf);
                     rf95.send((uint8_t*)tx_buf, strlen(tx_buf));
                 }
                 break;
             } else {
-                printf("didn't get gps lock\r\n");
             }
         }
-        printf("disabling gps\r\n");
         gps_enable(false);
         rf95.sleep();
         if (cdc_device_enabled()) {
             time = system_time_get_ms();
-            PT_WAIT_UNTIL(&pt, system_time_get_ms() - time >= GPS_OFF_TIME);
+            PT_WAIT_UNTIL(&gps_pt, system_time_get_ms() - time >= GPS_OFF_TIME);
         } else {
             rtc_set_timeout_ms(GPS_OFF_TIME);
             standby();
-            PT_YIELD(&pt);
+            PT_YIELD(&gps_pt);
         }
     }
-    PT_END(&pt);
+    PT_END(&gps_pt);
+}
+
+static struct pt rx_pt;
+
+static PT_THREAD(rx_thread(void)) {
+    PT_BEGIN(&rx_pt);
+    while (1) {
+        if (rf95.available()){
+            uint8_t buf[RH_RF95_MAX_MESSAGE_LEN + 1] = {0};
+            uint8_t len = RH_RF95_MAX_MESSAGE_LEN;
+            if (rf95.recv(buf, &len)) {
+                printf((char*)buf);
+            } else {
+                //receive failed
+            }
+        }
+        PT_YIELD(&rx_pt);
+    }
+    PT_END(&rx_pt);
 }
 
 int main(void)
@@ -75,7 +90,6 @@ int main(void)
 
     bool radio_init = rf95.init();
     if (!radio_init) {
-        printf("failed to initialize radio");
         while (1) {}
     }
     rf95.setFrequency(FREQUENCY);
@@ -84,10 +98,12 @@ int main(void)
 
     uart_init();
 
-    PT_INIT(&pt);
+    PT_INIT(&gps_pt);
+    PT_INIT(&rx_pt);
 
 	while (1) {
         PT_SCHEDULE(gps_thread());
+        PT_SCHEDULE(rx_thread());
         cdc_device_acm_update();
 	}
 }
