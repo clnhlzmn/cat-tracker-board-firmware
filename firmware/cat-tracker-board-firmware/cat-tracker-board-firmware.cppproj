@@ -688,6 +688,12 @@
     <Compile Include="hri\hri_wdt_d21.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="id.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="id.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="lc-switch.h">
       <SubType>compile</SubType>
     </Compile>
@@ -698,6 +704,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mode.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="nvm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="nvm.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="pt.h">

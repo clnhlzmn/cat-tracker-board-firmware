@@ -10,6 +10,7 @@
 #include "rtc.h"
 #include "standby.h"
 #include "mode.h"
+#include "id.h"
 
 #define FREQUENCY 921.2
 
@@ -42,7 +43,13 @@ static PT_THREAD(gps_thread()) {
             } while (!gps_have_new_value(gps) && system_time_get_ms() - time < GPS_LOCK_TIMEOUT);
             if (gps_have_new_value(gps)) {
                 char tx_buf[TX_BUF_SIZE];
-                int n = snprintf(tx_buf, TX_BUF_SIZE, "%06ld,%08ld,%f,%f,%f", gps.date.value(), gps.time.value(), gps.location.lat(), gps.location.lng(), gps.hdop.hdop());
+                uint64_t id = id_get(gps);
+                int n = snprintf(tx_buf, TX_BUF_SIZE, "%014llx,%06ld,%08ld,%f,%f,%f",
+                    id,
+                    gps.date.value(), gps.time.value(), 
+                    gps.location.lat(), gps.location.lng(), 
+                    gps.hdop.hdop()
+                );
                 if (n > 0 && n < TX_BUF_SIZE) {
                     rf95.send((uint8_t*)tx_buf, strlen(tx_buf));
                 }
