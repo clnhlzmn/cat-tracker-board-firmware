@@ -120,7 +120,7 @@ void TARGET_USB_init(void)
 void system_init(void)
 {
 	init_mcu();
-#if MODE == RECEIVER
+#if TRACKER_MODE == RECEIVER
 	TARGET_USB_init();
 #endif
 }

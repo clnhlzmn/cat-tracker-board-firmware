@@ -5,9 +5,11 @@
  *  Author: colin
  */ 
 
-#if MODE == TRANSMITTER
+#include "mode.h"
+
+#if TRACKER_MODE == TRANSMITTER
 #pragma message("building for transmitter")
-#elif MODE == RECEIVER
+#elif TRACKER_MODE == RECEIVER
 #pragma message("building for receiver")
 #else
 #error "mode not defined"

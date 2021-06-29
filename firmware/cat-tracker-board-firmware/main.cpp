@@ -22,7 +22,7 @@
 
 static RH_RF95 rf95(SS_PIN, INTERRUPT_PIN);
 
-#if MODE == TRANSMITTER
+#if TRACKER_MODE == TRANSMITTER
 
 static TinyGPSPlus gps;
 
@@ -61,7 +61,7 @@ static PT_THREAD(gps_thread()) {
 
 #endif
 
-#if MODE == RECEIVER
+#if TRACKER_MODE == RECEIVER
 
 static struct pt rx_pt;
 
@@ -94,22 +94,22 @@ int main(void)
     rf95.setFrequency(FREQUENCY);
     rf95.setTxPower(14, false);
 
-#if MODE == TRANSMITTER
+#if TRACKER_MODE == TRANSMITTER
     rf95.sleep();
     rtc_init();
     uart_init();
 #endif
 
-#if MODE == TRANSMITTER
+#if TRACKER_MODE == TRANSMITTER
     PT_INIT(&gps_pt);
-#elif MODE == RECEIVER
+#elif TRACKER_MODE == RECEIVER
     PT_INIT(&rx_pt);
 #endif
 
 	while (1) {
-#if MODE == TRANSMITTER
+#if TRACKER_MODE == TRANSMITTER
         PT_SCHEDULE(gps_thread());
-#elif MODE == RECEIVER
+#elif TRACKER_MODE == RECEIVER
         PT_SCHEDULE(rx_thread());
         cdc_device_acm_update();
 #endif

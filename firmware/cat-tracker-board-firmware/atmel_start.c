@@ -7,7 +7,7 @@
 void atmel_start_init(void)
 {
 	system_init();
-#if MODE == RECEIVER
+#if TRACKER_MODE == RECEIVER
 	usb_init();
 #endif
 }
