@@ -72,7 +72,8 @@ static PT_THREAD(rx_thread(void)) {
             uint8_t buf[RH_RF95_MAX_MESSAGE_LEN + 1] = {0};
             uint8_t len = RH_RF95_MAX_MESSAGE_LEN;
             if (rf95.recv(buf, &len)) {
-                printf((const char *)buf);
+                printf("%s\r\n", (const char *)buf);
+                fflush(stdout);
             }
         }
         PT_YIELD(&rx_pt);
