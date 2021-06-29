@@ -51,4 +51,9 @@ private:
 
 extern SPI_Impl SPI;
 
+#include "hal_atomic.h"
+
+#define ATOMIC_BLOCK_START CRITICAL_SECTION_ENTER();
+#define ATOMIC_BLOCK_END CRITICAL_SECTION_LEAVE();
+
 #endif /* RH_HAL_H_ */

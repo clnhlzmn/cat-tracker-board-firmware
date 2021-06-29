@@ -12,6 +12,7 @@
 #include <hal_init.h>
 #include <hpl_gclk_base.h>
 #include <hpl_pm_base.h>
+#include "mode.h"
 
 void TARGET_USB_PORT_init(void)
 {
@@ -119,6 +120,7 @@ void TARGET_USB_init(void)
 void system_init(void)
 {
 	init_mcu();
-
+#if MODE == RECEIVER
 	TARGET_USB_init();
+#endif
 }

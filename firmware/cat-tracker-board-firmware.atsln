@@ -9,18 +9,24 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "cat-tracker-board-firmware_
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|ARM = Debug|ARM
-		Release|ARM = Release|ARM
+		Receiver-Debug|ARM = Receiver-Debug|ARM
+		Receiver-Release|ARM = Receiver-Release|ARM
+		Transmitter-Debug|ARM = Transmitter-Debug|ARM
+		Transmitter-Release|ARM = Transmitter-Release|ARM
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|ARM.ActiveCfg = Debug|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|ARM.Build.0 = Debug|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.ActiveCfg = Release|ARM
-		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.Build.0 = Release|ARM
-		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Debug|ARM.ActiveCfg = Debug|ARM
-		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Debug|ARM.Build.0 = Debug|ARM
-		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Release|ARM.ActiveCfg = Release|ARM
-		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Release|ARM.Build.0 = Release|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Receiver-Debug|ARM.ActiveCfg = Receiver-Debug|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Receiver-Debug|ARM.Build.0 = Receiver-Debug|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Receiver-Release|ARM.ActiveCfg = Receiver-Release|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Receiver-Release|ARM.Build.0 = Receiver-Release|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Transmitter-Debug|ARM.ActiveCfg = Transmitter-Debug|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Transmitter-Debug|ARM.Build.0 = Transmitter-Debug|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Transmitter-Release|ARM.ActiveCfg = Transmitter-Release|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Transmitter-Release|ARM.Build.0 = Transmitter-Release|ARM
+		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Receiver-Debug|ARM.ActiveCfg = Debug|ARM
+		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Receiver-Release|ARM.ActiveCfg = Release|ARM
+		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Transmitter-Debug|ARM.ActiveCfg = Debug|ARM
+		{DC9BE4BD-83C0-43D5-95CA-EC7340554C37}.Transmitter-Release|ARM.ActiveCfg = Release|ARM
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

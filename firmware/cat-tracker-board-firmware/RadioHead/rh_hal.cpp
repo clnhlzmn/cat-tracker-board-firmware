@@ -10,6 +10,7 @@
 #include "system_time.h"
 #include <stdlib.h>
 #include "hal_delay.h"
+#include "hal_atomic.h"
 
 static void (*rh_interrupt_cb)(void);
 

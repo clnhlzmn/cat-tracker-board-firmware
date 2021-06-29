@@ -9,6 +9,7 @@
 #include "gps.h"
 #include "rtc.h"
 #include "standby.h"
+#include "mode.h"
 
 #define FREQUENCY 921.2
 
@@ -20,6 +21,8 @@
 #define GPS_OFF_TIME (30 * 1000)
 
 static RH_RF95 rf95(SS_PIN, INTERRUPT_PIN);
+
+#if MODE == TRANSMITTER
 
 static TinyGPSPlus gps;
 
@@ -49,30 +52,27 @@ static PT_THREAD(gps_thread()) {
         }
         gps_enable(false);
         rf95.sleep();
-        if (cdc_device_enabled()) {
-            time = system_time_get_ms();
-            PT_WAIT_UNTIL(&gps_pt, system_time_get_ms() - time >= GPS_OFF_TIME);
-        } else {
-            rtc_set_timeout_ms(GPS_OFF_TIME);
-            standby();
-            PT_YIELD(&gps_pt);
-        }
+        rtc_set_timeout_ms(GPS_OFF_TIME);
+        standby();
+        PT_YIELD(&gps_pt);
     }
     PT_END(&gps_pt);
 }
+
+#endif
+
+#if MODE == RECEIVER
 
 static struct pt rx_pt;
 
 static PT_THREAD(rx_thread(void)) {
     PT_BEGIN(&rx_pt);
     while (1) {
-        if (rf95.available()){
+        if (rf95.available()) {
             uint8_t buf[RH_RF95_MAX_MESSAGE_LEN + 1] = {0};
             uint8_t len = RH_RF95_MAX_MESSAGE_LEN;
             if (rf95.recv(buf, &len)) {
-                printf((char*)buf);
-            } else {
-                //receive failed
+                printf((const char *)buf);
             }
         }
         PT_YIELD(&rx_pt);
@@ -80,30 +80,38 @@ static PT_THREAD(rx_thread(void)) {
     PT_END(&rx_pt);
 }
 
+#endif
+
 int main(void)
 {
 	atmel_start_init();
 
     system_time_init();
 
-    rtc_init();
-
-    bool radio_init = rf95.init();
-    if (!radio_init) {
+    if (!rf95.init()) {
         while (1) {}
     }
     rf95.setFrequency(FREQUENCY);
     rf95.setTxPower(14, false);
+
+#if MODE == TRANSMITTER
     rf95.sleep();
-
+    rtc_init();
     uart_init();
+#endif
 
+#if MODE == TRANSMITTER
     PT_INIT(&gps_pt);
+#elif MODE == RECEIVER
     PT_INIT(&rx_pt);
+#endif
 
 	while (1) {
+#if MODE == TRANSMITTER
         PT_SCHEDULE(gps_thread());
+#elif MODE == RECEIVER
         PT_SCHEDULE(rx_thread());
         cdc_device_acm_update();
+#endif
 	}
 }

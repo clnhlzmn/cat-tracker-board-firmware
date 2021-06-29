@@ -1329,7 +1329,9 @@ these examples and explanations and extend them to suit your needs.
 // See hardware/esp8266/2.0.0/cores/esp8266/Arduino.h
  #define ATOMIC_BLOCK_START { uint32_t __savedPS = xt_rsil(15);
  #define ATOMIC_BLOCK_END xt_wsr_ps(__savedPS);}
-#else 
+#elif RH_PLATFORM == RH_PLATFORM_GENERIC
+//defined in rh_hal.h
+#elif
  // TO BE DONE:
  #define ATOMIC_BLOCK_START
  #define ATOMIC_BLOCK_END
