@@ -44,7 +44,7 @@ static PT_THREAD(gps_thread()) {
             if (gps_have_new_value(gps)) {
                 char tx_buf[TX_BUF_SIZE];
                 uint64_t id = id_get(gps);
-                int n = snprintf(tx_buf, TX_BUF_SIZE, "%014llx,%06ld,%08ld,%f,%f,%f",
+                int n = snprintf(tx_buf, TX_BUF_SIZE, "%016llx,%06ld,%08ld,%f,%f,%f",
                     id,
                     gps.date.value(), gps.time.value(), 
                     gps.location.lat(), gps.location.lng(), 

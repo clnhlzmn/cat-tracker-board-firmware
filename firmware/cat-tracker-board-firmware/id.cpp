@@ -20,8 +20,8 @@ uint64_t id_get(TinyGPSPlus &gps) {
     if (id.u64 == 0xffffffffffffffff) {
         uint32_t date = gps.date.value();
         uint32_t time = gps.time.value() / 100;
-        uint16_t ms = system_time_get_ms() & 0xffff;
-        id.u64 = (uint64_t)date << 36 | (uint64_t)time << 16 | ms;
+        uint16_t ms = system_time_get_ms() & 0xffffff;
+        id.u64 = (uint64_t)date << 44 | (uint64_t)time << 24 | ms;
         nvm_write(id.bytes, 8);
     }
     return id.u64;

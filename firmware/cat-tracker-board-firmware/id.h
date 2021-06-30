@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include "TinyGPS++.h"
 
-/*Returns a 56 bit id from flash memory. 
+/*Returns a 64 bit id from flash memory. 
 If there is no ID present in flash then one is generated 
 based on the gps date/time and system ms clock and then
 stored in flash for next time an id is needed.*/
